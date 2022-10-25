@@ -1,10 +1,7 @@
 package no.oslomet.cs.algdat.Oblig3;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SBinTre<T> {
     private static final class Node<T>   // en indre nodeklasse
@@ -82,7 +79,8 @@ public class SBinTre<T> {
     public boolean tom() {
         return antall == 0;
     }
-//Oppgave1
+
+    //Oppgave1
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "ikke lov med nullverdier");
 
@@ -110,18 +108,18 @@ public class SBinTre<T> {
     }
 
 
-
     public int fjernAlle(T verdi) {
-        int antallslettet= 0;
-        if (!tom()){
-            while (fjern(verdi)){
+        int antallslettet = 0;
+        if (!tom()) {
+            while (fjern(verdi)) {
                 antallslettet++;
             }
         }
-         return antallslettet;
+        return antallslettet;
 
     }
-//Opgave2
+
+    //Opgave2
     public int antall(T verdi) {
         Node<T> p = rot;
         int teller = 0;
@@ -144,18 +142,45 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
-    private static <T> Node<T> førstePostorden(Node<T> p) {
-        if(p == null){
 
+   //Oppgave3 del1
+    private static <T> Node<T> førstePostorden(Node<T> p) {
+        if (p == null) {
+            throw new NoSuchElementException("Dette treet er tomt!!");
+        }
+        while (true) {
+            if (p.venstre != null) p = p.venstre;
+            else if (p.høyre != null) p = p.høyre;
+            else return p;
+        }
+    }
+    //Oppgave3 del2
+    private static <T> Node<T> nestePostorden(Node<T> p) {
+        if (p == null) {
+            throw new NoSuchElementException("Dette treet er tomt!!");
         }
 
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        else if (p.forelder == null) {
+            p = null;
+        }
+
+        else if (p == p.forelder.høyre) {
+            p = p.forelder;
+        }
+
+        else if (p == p.forelder.venstre){
+
+            if (p.forelder.høyre == null){
+                p = p.forelder;
+    }
+            else
+                p= førstePostorden (p.forelder.høyre);
+
+        }
+        return p;
     }
 
-    private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
-
+    //Oppgave4
     public void postorden(Oppgave<? super T> oppgave) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
