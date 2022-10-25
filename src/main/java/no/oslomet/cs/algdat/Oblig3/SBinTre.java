@@ -82,7 +82,7 @@ public class SBinTre<T> {
     public boolean tom() {
         return antall == 0;
     }
-
+//Oppgave1
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "ikke lov med nullverdier");
 
@@ -105,64 +105,50 @@ public class SBinTre<T> {
     }
 
 
-
     public boolean fjern(T verdi) {
-        if (verdi == null)
-            return false;
-        Node<T> p = rot, q = null;
-        while (p != null) {
-            int sammlign = comp.compare(verdi, p.verdi);
-            if (sammlign < 0) {
-                q = p;
-                p = p.venstre;
-            } else if (sammlign > 0) {
-                q = p;
-                p = p.høyre;
-            } else break;
-        }
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
+    }
 
-        if (p == null)
-            return false;
-        if (p.venstre == null || p.høyre == null) {
-            Node<T> L = p.venstre != null ? p.venstre : p.høyre;
-            if (p == rot) rot = L;
 
-            else if (p == q.venstre) {
-                q.venstre = L;
-                if (L != null) {
-                    L.forelder = q;
-                }
-            }
-
-            } else {
-                Node<T> U = p, r = p.høyre;
-                while (r.venstre != null) {
-                    U = r;
-                    r = r.venstre;
-                }
-                p.verdi = r.verdi;
-                if (U != p) U.venstre = r.høyre;
-                else U.høyre = r.høyre;
-            }
-            endringer++;
-            antall--;
-            return true;
-
-        }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antallslettet= 0;
+        if (!tom()){
+            while (fjern(verdi)){
+                antallslettet++;
+            }
+        }
+         return antallslettet;
+
+    }
+//Opgave2
+    public int antall(T verdi) {
+        Node<T> p = rot;
+        int teller = 0;
+        while (p != null) {
+            int cmp = comp.compare(verdi, p.verdi);
+            if (cmp < 0) {
+                p = p.venstre;
+            } else {
+                if (cmp == 0) {
+                    teller++;
+                    p = p.høyre;
+                }
+            }
+        }
+        return teller;
     }
 
-    public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
 
     public void nullstill() {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
+        if(p == null){
+
+        }
+
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
