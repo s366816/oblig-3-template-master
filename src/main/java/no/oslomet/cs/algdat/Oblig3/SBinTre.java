@@ -107,10 +107,48 @@ public class SBinTre<T> {
 
 
     public boolean fjern(T verdi) {
+        if (verdi == null)
+            return false;
+        Node<T> p = rot, q = null;
+        while (p != null) {
+            int sammlign = comp.compare(verdi, p.verdi);
+            if (sammlign < 0) {
+                q = p;
+                p = p.venstre;
+            } else if (sammlign > 0) {
+                q = p;
+                p = p.høyre;
+            } else break;
+        }
 
+        if (p == null)
+            return false;
+        if (p.venstre == null || p.høyre == null) {
+            Node<T> L = p.venstre != null ? p.venstre : p.høyre;
+            if (p == rot) rot = L;
 
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
+            else if (p == q.venstre) {
+                q.venstre = L;
+                if (L != null) {
+                    L.forelder = q;
+                }
+            }
+
+            } else {
+                Node<T> U = p, r = p.høyre;
+                while (r.venstre != null) {
+                    U = r;
+                    r = r.venstre;
+                }
+                p.verdi = r.verdi;
+                if (U != p) U.venstre = r.høyre;
+                else U.høyre = r.høyre;
+            }
+            endringer++;
+            antall--;
+            return true;
+
+        }
 
     public int fjernAlle(T verdi) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
