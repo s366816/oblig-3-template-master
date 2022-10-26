@@ -211,13 +211,34 @@ public class SBinTre<T> {
         }
         oppgave.utførOppgave(p.verdi);
     }
-
+//oppgave5
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayList<T> list = new ArrayList<>();
+        ArrayDeque<Node> kø = new ArrayDeque<Node>();
+
+        kø.addLast(rot);
+        while (!kø.isEmpty()) {
+
+            Node<T> nåværende = kø.removeFirst();
+
+            if (nåværende.venstre != null) {
+                kø.addLast(nåværende.venstre);
+            }
+            if (nåværende.høyre != null) {
+                kø.addLast(nåværende.høyre);
+            }
+            list.add(nåværende.verdi);
+
+        }
+        return list;
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        SBinTre<K> tre = new SBinTre<K>(c);
+        for (int i = 0; i < data.size(); i++){
+            tre.leggInn(data.get(i));
+        }
+        return tre;
     }
 
 
