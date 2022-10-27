@@ -173,8 +173,20 @@ public class SBinTre<T> {
 
     }
 
+
     //Opgave2
-    public int antall(T verdi) {
+    public int antall2(T verdi, Node<T> node){
+        if(node == null){
+            return 0;
+        }
+        return antall2(verdi, node.venstre) + antall2(verdi, node.høyre) + (node.verdi.equals(verdi) ? 1 : 0);
+    }
+
+    //oppgave2
+    public int antall(T verdi){
+        return antall2(verdi,rot);
+    }
+    /*public int antall(T verdi) {
         Node<T> p = rot;
         int teller = 0;
         while (p != null) {
@@ -190,6 +202,8 @@ public class SBinTre<T> {
         }
         return teller;
     }
+
+     */
 
 
     public void nullstill() {
