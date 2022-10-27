@@ -186,32 +186,24 @@ public class SBinTre<T> {
     public int antall(T verdi){
         return antall2(verdi,rot);
     }
-    /*public int antall(T verdi) {
-        Node<T> p = rot;
-        int teller = 0;
-        while (p != null) {
-            int cmp = comp.compare(verdi, p.verdi);
-            if (cmp < 0) {
-                p = p.venstre;
-            } else {
-                if (cmp == 0) {
-                    teller++;
-                    p = p.høyre;
-                }
-            }
-        }
-        return teller;
-    }
 
-     */
-
-
-    public void nullstill() {
-        if( !tom())
-            nullstill();
-        this.rot = null;
+    //oppgave6
+    public void nullstill(){
+        nullstill(rot);
+        rot = null;
         antall = 0;
         endringer = 0;
+    }
+
+    public void nullstill(Node<T> node){
+        if(node == null)
+            return;
+        nullstill(node.venstre);
+        nullstill(node.høyre);
+        node.verdi = null;
+        node.venstre = null;
+        node.høyre = null;
+        node.forelder = null;
 
     }
 
